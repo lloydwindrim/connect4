@@ -70,7 +70,7 @@ class Game( ):
         #   player id ==> player to check. 1 or 2
         #   target ==> how many consecutive tokens to win. default=4
         # outputs:
-        #   FLAG_win ==> 1-player wins, 0-player loses
+        #   FLAG_win ==> 1-player wins, 0-no win
         # ---------------------------------------------------
 
         # identify playerID's tokens
