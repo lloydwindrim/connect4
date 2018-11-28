@@ -31,58 +31,64 @@ if __name__ == "__main__":
     while(1):
 
         # player 1: take turn
-        valid = 0
-        count = 0
-        while valid == 0:
-            # get location from bot
-            if DEBUG_MODE:
-                col = useful_tools.debug_bot1(game.gameState.copy(), round, playerID=1)
-            else:
-                start = time.time()
-                col = bot1.bot(game.gameState.copy(), round, playerID=1)
-                if time.time() > start + PERIOD_OF_TIME:
+        try:
+            valid = 0
+            count = 0
+            while valid == 0:
+                # get location from bot
+                if DEBUG_MODE:
+                    col = useful_tools.debug_bot1(game.gameState.copy(), round, playerID=1)
+                else:
+                    start = time.time()
+                    col = bot1.bot(game.gameState.copy(), round, playerID=1)
+                    if time.time() > start + PERIOD_OF_TIME:
+                        game.result = 'player2 wins by time-out'
+                # update game state
+                valid = game.take_turn(playerID=1, col=col)
+                count += 1
+                if count > MAX_COUNT:
                     game.result = 'player2 wins by time-out'
-            # update game state
-            valid = game.take_turn(playerID=1, col=col)
-            count += 1
-            if count > MAX_COUNT:
-                game.result = 'player2 wins by time-out'
-                break
+                    break
+        except:
+            game.result = 'player2 wins by error in player1 code'
 
         # display board
         print '--------- round %i -------------------'%(round)
         print game.gameState
 
         # check if player 1 won
-        if (game.result == 'player1 wins') | (game.result == 'draw') | (game.result == 'player2 wins by time-out'):
+        if (game.result == 'player1 wins') | (game.result == 'draw') | (game.result == 'player2 wins by time-out') | (game.result == 'player2 wins by error in player1 code'):
             print game.result
             break
 
 
         # player 2: take turn
-        valid = 0
-        count = 0
-        while valid == 0:
-            # get location from bot
-            if DEBUG_MODE:
-                col = useful_tools.debug_bot2(game.gameState.copy(), round, playerID=2)
-            else:
-                start = time.time()
-                col = bot2.bot(game.gameState.copy(), round, playerID=2)
-                if time.time() > start + PERIOD_OF_TIME:
+        try:
+            valid = 0
+            count = 0
+            while valid == 0:
+                # get location from bot
+                if DEBUG_MODE:
+                    col = useful_tools.debug_bot2(game.gameState.copy(), round, playerID=2)
+                else:
+                    start = time.time()
+                    col = bot2.bot(game.gameState.copy(), round, playerID=2)
+                    if time.time() > start + PERIOD_OF_TIME:
+                        game.result = 'player1 wins by time-out'
+                # update game state
+                valid = game.take_turn(playerID=2, col=col)
+                count += 1
+                if count > MAX_COUNT:
                     game.result = 'player1 wins by time-out'
-            # update game state
-            valid = game.take_turn(playerID=2, col=col)
-            count += 1
-            if count > MAX_COUNT:
-                game.result = 'player1 wins by time-out'
-                break
+                    break
+        except:
+            game.result = 'player1 wins by error in player2 code'
 
         # display board
         print game.gameState
 
         # check if player 2 won
-        if (game.result == 'player2 wins') | (game.result == 'draw') | (game.result == 'player1 wins by time-out'):
+        if (game.result == 'player2 wins') | (game.result == 'draw') | (game.result == 'player1 wins by time-out') | (game.result == 'player1 wins by error in player2 code'):
             print game.result
             break
 
