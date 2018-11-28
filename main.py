@@ -30,19 +30,19 @@ if __name__ == "__main__":
 
     while(1):
 
-        # player 1: get location from bot
-        if DEBUG_MODE:
-            col = useful_tools.debug_bot1(game.gameState.copy(), round, playerID=1)
-        else:
-            start = time.time()
-            col = bot1.bot(game.gameState.copy(), round, playerID=1)
-            if time.time() > start + PERIOD_OF_TIME:
-                game.result = 'player2 wins by time-out'
-
         # player 1: take turn
         valid = 0
         count = 0
         while valid == 0:
+            # get location from bot
+            if DEBUG_MODE:
+                col = useful_tools.debug_bot1(game.gameState.copy(), round, playerID=1)
+            else:
+                start = time.time()
+                col = bot1.bot(game.gameState.copy(), round, playerID=1)
+                if time.time() > start + PERIOD_OF_TIME:
+                    game.result = 'player2 wins by time-out'
+            # update game state
             valid = game.take_turn(playerID=1, col=col)
             count += 1
             if count > MAX_COUNT:
@@ -59,19 +59,19 @@ if __name__ == "__main__":
             break
 
 
-        # player 2: get location from bot
-        if DEBUG_MODE:
-            col = useful_tools.debug_bot2(game.gameState.copy(), round, playerID=2)
-        else:
-            start = time.time()
-            col = bot2.bot(game.gameState.copy(), round, playerID=2)
-            if time.time() > start + PERIOD_OF_TIME:
-                game.result = 'player1 wins by time-out'
-
         # player 2: take turn
         valid = 0
         count = 0
         while valid == 0:
+            # get location from bot
+            if DEBUG_MODE:
+                col = useful_tools.debug_bot2(game.gameState.copy(), round, playerID=2)
+            else:
+                start = time.time()
+                col = bot2.bot(game.gameState.copy(), round, playerID=2)
+                if time.time() > start + PERIOD_OF_TIME:
+                    game.result = 'player1 wins by time-out'
+            # update game state
             valid = game.take_turn(playerID=2, col=col)
             count += 1
             if count > MAX_COUNT:
