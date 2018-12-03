@@ -2,6 +2,7 @@ import connect4
 import useful_tools
 import sys
 import time
+from connect4_gui import GUI
 
 DEBUG_MODE = False
 
@@ -27,6 +28,7 @@ if __name__ == "__main__":
     MAX_COUNT = 10  # number of consecutive invalid moves before time-out
 
     game = connect4.Game( boardSize=BOARDSIZE, target=TARGET )
+    gui = GUI(debug_mode=DEBUG_MODE, scale=1)
 
     while(1):
 
@@ -45,6 +47,7 @@ if __name__ == "__main__":
                         game.result = 'player2 wins by time-out'
                 # update game state
                 valid = game.take_turn(playerID=1, col=col)
+                gui.move(playerID=1, col=col)
                 count += 1
                 if count > MAX_COUNT:
                     game.result = 'player2 wins by time-out'
@@ -77,6 +80,7 @@ if __name__ == "__main__":
                         game.result = 'player1 wins by time-out'
                 # update game state
                 valid = game.take_turn(playerID=2, col=col)
+                gui.move(playerID=2, col=col)
                 count += 1
                 if count > MAX_COUNT:
                     game.result = 'player1 wins by time-out'
@@ -94,6 +98,5 @@ if __name__ == "__main__":
 
 
         round += 1
-
-
+    gui.finished()
 
