@@ -28,3 +28,7 @@ which can be used to develop bots in debug mode.
 ## Rules
 
 If you bot picks a column that is either full or not valid, it will be prompted to pick again. It will have a maximum of 10 re-picks before the player is declared the loser. There is also a time limit of 3 seconds or the bot to choose a valid column. There are tools for checking if a column is full or valid available in useful_tools.py
+
+## Prerequisities
+To use the gui:
+- pygame
