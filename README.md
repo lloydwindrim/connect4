@@ -31,4 +31,4 @@ If you bot picks a column that is either full or not valid, it will be prompted 
 
 ## Prerequisities
 To use the gui:
-	- pygame
+- pygame
