@@ -26,9 +26,12 @@ if __name__ == "__main__":
     TARGET = 4 # how many consecutive tokens to win
     PERIOD_OF_TIME = 3 # number of seconds before time-out
     MAX_COUNT = 10  # number of consecutive invalid moves before time-out
+    WAIT_TIME = 0 # how many seconds to pause each turn (help visualisation)
+    GUI_ON = True
 
     game = connect4.Game( boardSize=BOARDSIZE, target=TARGET )
-    gui = GUI(debug_mode=DEBUG_MODE, scale=1)
+    if GUI_ON:
+        gui = GUI(debug_mode=DEBUG_MODE, scale=1)
 
     while(1):
 
@@ -47,11 +50,13 @@ if __name__ == "__main__":
                         game.result = 'player2 wins by time-out'
                 # update game state
                 valid = game.take_turn(playerID=1, col=col)
-                gui.move(playerID=1, col=col)
+                if GUI_ON:
+                    gui.move(playerID=1, col=col)
                 count += 1
                 if count > MAX_COUNT:
                     game.result = 'player2 wins by time-out'
                     break
+                #time.sleep(WAIT_TIME)
         except:
             game.result = 'player2 wins by error in player1 code'
 
@@ -80,11 +85,13 @@ if __name__ == "__main__":
                         game.result = 'player1 wins by time-out'
                 # update game state
                 valid = game.take_turn(playerID=2, col=col)
-                gui.move(playerID=2, col=col)
+                if GUI_ON:
+                    gui.move(playerID=2, col=col)
                 count += 1
                 if count > MAX_COUNT:
                     game.result = 'player1 wins by time-out'
                     break
+                #time.sleep(WAIT_TIME)
         except:
             game.result = 'player1 wins by error in player2 code'
 
@@ -98,5 +105,6 @@ if __name__ == "__main__":
 
 
         round += 1
-    gui.finished()
+    if GUI_ON:
+        gui.finished()
 
