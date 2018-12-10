@@ -50,8 +50,6 @@ if __name__ == "__main__":
                         game.result = 'player2 wins by time-out'
                 # update game state
                 valid = game.take_turn(playerID=1, col=col)
-                if GUI_ON:
-                    gui.move(playerID=1, col=col)
                 count += 1
                 if count > MAX_COUNT:
                     game.result = 'player2 wins by time-out'
@@ -60,9 +58,14 @@ if __name__ == "__main__":
         except:
             game.result = 'player2 wins by error in player1 code'
 
-        # display board
+
+        # display board via terminal
         print '--------- round %i -------------------'%(round)
         print game.gameState
+
+        # display via gui
+        if GUI_ON:
+            gui.move(playerID=1, col=col)
 
         # check if player 1 won
         if (game.result == 'player1 wins') | (game.result == 'draw') | (game.result == 'player2 wins by time-out') | (game.result == 'player2 wins by error in player1 code'):
@@ -85,8 +88,6 @@ if __name__ == "__main__":
                         game.result = 'player1 wins by time-out'
                 # update game state
                 valid = game.take_turn(playerID=2, col=col)
-                if GUI_ON:
-                    gui.move(playerID=2, col=col)
                 count += 1
                 if count > MAX_COUNT:
                     game.result = 'player1 wins by time-out'
@@ -95,8 +96,13 @@ if __name__ == "__main__":
         except:
             game.result = 'player1 wins by error in player2 code'
 
-        # display board
+
+        # display board via terminal
         print game.gameState
+
+        # display via gui
+        if GUI_ON:
+            gui.move(playerID=2, col=col)
 
         # check if player 2 won
         if (game.result == 'player2 wins') | (game.result == 'draw') | (game.result == 'player1 wins by time-out') | (game.result == 'player1 wins by error in player2 code'):
